@@ -26,14 +26,19 @@ function em(value) {
 
 /*
 	#General
+		Containers
+		Text manipulations
 		Header
 	#Nav
 	#Input Field
+	#Ticker Info
+	#Reports
 */
 
 const Styles = StyleSheet.create(
 	{
 		// #General
+		// Containers
 		containerFull:{
 			flex: 1,
 			backgroundColor: '#fff',
@@ -41,6 +46,56 @@ const Styles = StyleSheet.create(
 		containerCenter:{
 			alignItems: 'center',
 			justifyContent: 'center',
+		},
+		containerRow:{
+			flex: 1,
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+		},
+		containerColumn:{
+			flexDirection: 'column',
+		},
+		contentTopContainer:{
+			flex: 6,
+			flexDirection: 'row',
+			backgroundColor: 'lightblue',
+		},
+		contentBottomContainer:{
+			flex: 6, 
+			backgroundColor: '#f0f8ff',
+		},
+		contentTitleContainer:{
+			flex: 5,
+			justifyContent: 'center',
+			alignItems: 'center',
+			backgroundColor: '#f0ffff',
+		},
+		contentDescContainer:{
+			flex: 6,
+			backgroundColor: '#e0eeee',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
+		// Text Manipulations
+		tac:{
+			textAlign: 'center',
+			alignSelf: 'center',
+		},
+		tar:{
+			textAlign: 'right',
+			alignSelf: 'flex-end',
+		},
+		bold:{
+			fontWeight: 'bold',
+		},
+		contentTitle:{
+			fontSize: em(2.25),
+			fontWeight: 'bold',
+			color: '#000'
+		},
+		contentDate:{
+			fontSize: em(1),
+			color: '#000'
 		},
 		// Header
 		headerWrapper:{
@@ -92,6 +147,12 @@ const Styles = StyleSheet.create(
 			justifyContent: 'flex-start',
 			alignItems: 'center',
 		},
+		tickerInfo:{
+			fontSize: em(0.8),
+			fontWeight: 'bold',
+			color: "#000",
+			marginVertical: em(0.75),
+		},
 		// #Input Field
 		inputWrapper:{
 			flex: 2,
@@ -108,14 +169,81 @@ const Styles = StyleSheet.create(
 			alignSelf: 'flex-start',
 			padding: 10,
 		},
+		// #Ticker Data
 		tickersContainer:{
 			padding: 5,
 			marginVertical: 1,
 			backgroundColor: '#f5f5f5'
 		},
 		tickerTitle:{
-			padding: 10,
 			fontSize: em(1),
+			fontWeight: 'bold',
+		},
+		tickerCode:{
+			fontSize: em(0.75),
+			marginVertical: em(0.25),
+		},
+		tickerDate:{
+			fontSize: em(0.8),
+		},
+		tickerInfoWrapper:{
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+			paddingVertical: 10,
+		},
+		tickerInfoHigh:{
+			color: 'darkgreen'
+		},
+		tickerInfoLow:{
+			color: 'red'
+		},
+		// #Reports
+		reportButton:{
+			marginVertical: em(0.5),
+			width: windowWidth/1.5 - 10,
+			backgroundColor: '#7ac5cd',
+			padding: em(1),
+			justifyContent: 'center',
+			alignItems: 'center',
+			borderRadius: 5,
+		},
+		reportButtonText:{
+			fontSize: em(1.15),
+			color: "#fff",
+			fontWeight: 'bold',
+		},
+		reportsTitle:{
+			//alignSelf: 'center',
+			textAlign: 'center',
+			padding: 10,
+			backgroundColor: '#f8f8ff',
+			//width: windowWidth,
+			fontSize: em(1),
+			color: '#000',
+			fontWeight: 'bold',
+		},
+		containerReports:{
+			backgroundColor: '#f8f8ff',
+			flex: 6,
+		},
+		reportTitle:{
+			fontSize: em(1),
+			fontWeight: 'bold',
+			//alignSelf: 'center',
+			textAlign: 'center',
+			padding: 5,
+			color: '#003',
+		},
+		containerGraph:{
+			alignSelf: 'center',
+			backgroundColor: '#404040',
+			flex: 1,
+			//height: windowWidth - statusBarHeight - 15 - em(1),
+		},
+		lineChart:{
+			flex: 1,
+			width: windowHeight,
+			height: windowWidth - statusBarHeight - 15 - em(1),
 		}
 	}
 );

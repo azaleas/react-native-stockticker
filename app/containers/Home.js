@@ -10,6 +10,9 @@ import {
   MKColor
 } from 'react-native-material-kit';
 
+import Orientation from 'react-native-orientation';
+
+
 import Styles from './../Styles';
 import NavComponent from './../components/NavComponent';
 
@@ -40,6 +43,10 @@ class Home extends Component {
         this.state = {
             dataSource: ds.cloneWithRows([]),
         }
+    }
+
+    componentWillMount(){
+        Orientation.lockToPortrait();
     }
 
     componentDidMount(){

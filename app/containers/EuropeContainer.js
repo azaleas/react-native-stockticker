@@ -5,9 +5,7 @@ import {
   TextInput,
 } from 'react-native';
 
-import moment from 'moment';
-
-import USTickersComponent from './../components/USTickersComponent';
+import TickersComponent from './../components/TickersComponent';
 
 import {
   MKButton,
@@ -37,16 +35,17 @@ const SingleColorSpinner = MKSpinner.singleColorSpinner()
   .withStrokeColor(spinnerOptions.strokeColor)
   .build()
 
-class USContainer extends Component {
+class EuropeContainer extends Component {
 
     constructor(props) {
-    	// totalData will be used as autocomplete, to add all data back allData will be used
+    	/* totalData will be used as autocomplete, 
+        to add all data back allData will be used. allISIN will hold isin codes */
         super(props);
         this.state = {
         	loaded: false,
-        	dataJSON: '',
             totalData: '',
             allData: '',
+            allISIN: '',
             searchStatus: ''
         };
     }
@@ -55,45 +54,38 @@ class USContainer extends Component {
 
     Orientation.lockToPortrait();
 
-	let date = moment().format('YYYYMMDD');
-
 	let tickers = [];
 	let totalData = [];
 
     let dayCounter = 0;
 
-    let dataTest = (date) => {
-        api.fetchUSAll(date)
-            .then((dataJSON) => {
-                let data = dataJSON.datatable.data;
-                if(data.length <= 0){
-                    dayCounter++;
-                    let date = moment().subtract(dayCounter, 'days').format('YYYYMMDD');
-                    dataTest(date);
-                }
-                else{
-                    this.setState({
-                        dataJSON: data,
-                    })
-                    this.state.dataJSON.filter((element, index) => {
-                        totalData.push(element);
-                    });
-                    this.setState({
-                        loaded: true,
-                        totalData,
-                        allData: totalData,
-                        searchStatus: "Total tickers: " + totalData.length,
-                    });
-                }
-            })
-        }
-    dataTest(date);
+    api.isinCodes()
+        .then((responseALL)=>{
+            //isinALL = {};
+            isinCodesList = [];
+            //isinCompanies = [];
+            responseALL.filter((element, index) => {
+                //isinCompanies.push(_.upperCase(element.split("|")[0]));
+                isinCodesList.push(element.split("|")[1]);
+            });
+            /*isinALL = {
+                isinCompanies,
+                isinCodesList
+            }*/
+            this.setState({
+                loaded: true,
+                allISIN: isinCodesList,
+                totalData: responseALL,
+                allData: responseALL,
+                searchStatus: "Total tickers: " + responseALL.length,
+            });
+        })
     }
 
     _handleTextChange = (text) =>{
-    	let tickerCode = _.upperCase(text);
+    	let searchText = text;
 
-    	let searchregexp = new RegExp("^" + tickerCode);
+    	let searchregexp = new RegExp(searchText, "i");
 
 
     	// Update listview with text from textarea aka autocomplete
@@ -126,7 +118,7 @@ class USContainer extends Component {
 	            <View style={Styles.containerFull}>
 	        		<View style={Styles.headerWrapper}>  
 		                <Text style={Styles.headerText}>{this.props.title}</Text>
-		                <Text style={[Styles.headerText, Styles.headerDesc]}>{"Wiki EOD Stock Prices"}</Text>
+		                <Text style={[Styles.headerText, Styles.headerDesc]}>{"Swiss Exchange"}</Text>
 		            </View>
 		            <View style={[Styles.contentWrapper, Styles.usContentWrapper]}>
 		            	<View style={Styles.inputWrapper}>
@@ -135,11 +127,13 @@ class USContainer extends Component {
 					            onChangeText={this._handleTextChange}
 					            autoCapitalize={'characters'}
 					            maxLength={20}
-					            placeholder="Enter ticker code for US company" />
+					            placeholder="Enter Company Name or ISIN" />
 		            	</View>
 		            	<View style={Styles.bookmarksWrapper}>
 							<Text>{this.state.searchStatus}</Text>
-							<USTickersComponent navigator={this.props.navigator}  totalData={this.state.totalData} />
+							<TickersComponent 
+                                navigator={this.props.navigator}  
+                                totalData={this.state.totalData} />
 		            	</View>
 		            </View>
 	            </View>
@@ -148,4 +142,4 @@ class USContainer extends Component {
     }
 }
 
-export default USContainer;
+export default EuropeContainer;

@@ -6,8 +6,6 @@ import {
   RecyclerViewBackedScrollView
 } from 'react-native';
 
-import _ from 'lodash';
-
 import Styles from './../Styles';
 
 import {
@@ -15,7 +13,7 @@ import {
   MKColor
 } from 'react-native-material-kit';
 
-class TickersComponent extends Component {
+class USTickersComponent extends Component {
     constructor(props) {
         super(props);
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
@@ -37,31 +35,37 @@ class TickersComponent extends Component {
     }
 
     _renderRow = (rowData) => {
-        let companyName = _.upperCase(rowData.split("|")[0]);
-        let tickerCode = rowData.split("|")[1];
+        // console.log(rowData);
         let navAction = () =>{
             this.props.navigator.push({
-              id: 'tickerDetails',
-              title: rowData.split("|")[0],
-              data: {
-                tickerCode: (tickerCode).slice(0, tickerCode.length - 1),
-                dataSet: 'SIX',
-                currencyCode: 'CHF',
-                currency: 'Swedish Krona'
-              }
+              id: 'usTickerDetails',
+              title: rowData[0],
+              data: rowData
             })
         };
         return(
           <MKButton
               onPress={navAction}
               rippleColor="rgba(255, 20, 147, 0.3)">
-              <View style={[Styles.tickersContainer, Styles.containerCenter]}>
-                <Text style={[Styles.tickerTitle]}>
-                  {companyName}
-                </Text>
-                <Text style={[Styles.tickerCode]}>
-                  {rowData.split("|")[1]}
-                </Text>
+              <View style={Styles.tickersContainer}>
+                <View style={Styles.containerRow}>
+                  <View style={Styles.containerLeft}>
+                     <Text style={[Styles.tickerTitle]}>
+                      {rowData[0]}
+                    </Text>
+                  </View>
+                  <View style={[Styles.containerRight, Styles.contentRight]}>
+                    <Text style={[Styles.tickerDate]}>
+                      {rowData[1]}
+                    </Text>
+                  </View>
+                </View>
+                <View style={[Styles.tickerInfoWrapper]}>
+                  <Text><Text style={Styles.bold}>Opened:</Text>{rowData[2]}</Text>
+                  <Text><Text style={[Styles.bold, Styles.tickerInfoHigh]}>H:</Text><Text style={Styles.tickerInfoHigh}>{rowData[3]}</Text></Text>
+                  <Text><Text style={[Styles.bold, Styles.tickerInfoLow]}>L:</Text><Text style={Styles.tickerInfoLow}>{rowData[4]}</Text></Text>
+                  <Text><Text style={Styles.bold}>Closed:</Text>{rowData[5]}</Text>
+                </View>
               </View>
           </MKButton>
         )
@@ -84,4 +88,4 @@ class TickersComponent extends Component {
     }
 }
 
-export default TickersComponent;
+export default USTickersComponent;
