@@ -11,8 +11,11 @@ What's implemented:
  1. API endpoints
  2. Basic design (Wasn't the main concern)
  3. Lists with 1000 and more entries
- 4. Search bar with autocomplete for presented lists of data
- 5. Separate Views for Charts (Line and Bar Charts)
+ 4. Implemented zip extraction.
+ 5. Implemented local file saving and deleting (cleaning up).
+ 6. Implemented CSV file reading from local file.
+ 7. Search bar with autocomplete for presented lists of data
+ 8. Separate Views for Charts (Line and Bar Charts)
 
 **Current version for Android Only.**
 
