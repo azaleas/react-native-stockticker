@@ -2,9 +2,9 @@
 
 My first React Native implementation. Stockticker app uses https://www.quandl.com API to get the historic stock data. Currently getting the data from the following datasets:
 
- - [Wiki EOD Stock Prices](https://www.quandl.com/data/WIKI) [Swiss
- - Exchange](https://www.quandl.com/data/SIX)
- -  [National Stock Exchange of India](https://www.quandl.com/data/NSE)
+ - [Wiki EOD Stock Prices](https://www.quandl.com/data/WIKI) 
+ - [Swiss Exchange](https://www.quandl.com/data/SIX)
+ - [National Stock Exchange of India](https://www.quandl.com/data/NSE)
 
 What's implemented:
 
