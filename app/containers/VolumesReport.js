@@ -20,6 +20,7 @@ class VolumesReport extends Component {
         super(props);
         this.state = {
         	data: '',
+        	title: '',
         }
     }    
 
@@ -29,17 +30,39 @@ class VolumesReport extends Component {
 		let graphXValues = [];
 		let graphYValues = [];
 		let data = this.props.data;
-		dataLength = data.length;
+		let	dataLength = data.length;
+		let dataSet = this.props.dataSet;
 		data.filter((element, index) => {
 			// Get data from the end of the month + last 5 days
-			if(/-31$/.test(element[1]) 
-				|| (/-30$/.test(element[1]) && !/-31$/.test(data[index+1][1]))
-				|| (/-29$/.test(element[1]) && !/-30$/.test(data[index+1][1]))
-				|| (/-28$/.test(element[1]) && !/-29$/.test(data[index+1][1]))
+			if(dataSet == "WIKI"){
+				dateIndex = 1;
+				priceIndex = 6;
+				this.setState({
+					title: "Volumes Data for 6 months"
+				});
+			}
+			else if (dataSet == "SIX"){
+				dateIndex = 0;
+				priceIndex = 2;
+				this.setState({
+					title: "Volumes Data for 6 months"
+				});
+			}
+			else if (dataSet == "NSE"){
+				dateIndex = 0;
+				priceIndex = 2;
+				this.setState({
+					title: "Turnover(Lacs) Data for 6 months"
+				});
+			}
+			if(/-31$/.test(element[dateIndex]) 
+				|| (/-30$/.test(element[dateIndex]) && !/-31$/.test(data[index+1][dateIndex]))
+				|| (/-29$/.test(element[dateIndex]) && !/-30$/.test(data[index+1][dateIndex]))
+				|| (/-28$/.test(element[dateIndex]) && !/-29$/.test(data[index+1][dateIndex]))				
 				|| index >= dataLength - 3
 			){
-	            graphXValues.push(element[1]);
-	            graphYValues.push(element[6]);
+	            graphXValues.push(element[dateIndex]);
+	            graphYValues.push(element[priceIndex]);
 			}
         });
         this.setState({
@@ -74,7 +97,7 @@ class VolumesReport extends Component {
     render() {
         return (
             <View style={[Styles.containerFull]}>
-            	<Text style={Styles.reportTitle}>{"Volumes Data for 6 months"}</Text>
+            	<Text style={Styles.reportTitle}>{this.state.title}</Text>
                 <View style={[Styles.containerGraph]}>
                 	<LineChart 
 			            style={Styles.lineChart} 

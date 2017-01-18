@@ -15,6 +15,10 @@ import {
   MKColor
 } from 'react-native-material-kit';
 
+const companyName = "";
+const tickerCode = "";
+const dataTickerCode = "";
+
 class TickersComponent extends Component {
     constructor(props) {
         super(props);
@@ -37,17 +41,42 @@ class TickersComponent extends Component {
     }
 
     _renderRow = (rowData) => {
-        let companyName = _.upperCase(rowData.split("|")[0]);
-        let tickerCode = rowData.split("|")[1];
+        let dataSet = this.props.dataSet;
+
+        switch (dataSet){
+          case "SIX":
+              companyName = _.upperCase(rowData.split("|")[0]);
+              tickerCode = rowData.split("|")[1];
+            break;
+          case "NSE":
+              companyName = _.upperCase(rowData.split(",")[1]);
+              tickerCode = rowData.split(",")[0];
+            break;
+        }
+
         let navAction = () =>{
+            let dataSet = this.props.dataSet;
+
+            switch (dataSet){
+              case "SIX":
+                  companyName = _.upperCase(rowData.split("|")[0]);
+                  tickerCode = rowData.split("|")[1];
+                  dataTickerCode = (tickerCode).slice(0, tickerCode.length - 1);
+                break;
+              case "NSE":
+                  companyName = _.upperCase(rowData.split(",")[1]);
+                  tickerCode = rowData.split(",")[0];
+                  dataTickerCode = tickerCode;
+                break;
+            }
             this.props.navigator.push({
               id: 'tickerDetails',
-              title: rowData.split("|")[0],
+              title: companyName,
               data: {
-                tickerCode: (tickerCode).slice(0, tickerCode.length - 1),
-                dataSet: 'SIX',
-                currencyCode: 'CHF',
-                currency: 'Swedish Krona'
+                tickerCode: dataTickerCode,
+                dataSet: this.props.dataSet,
+                currencyCode: this.props.currencyCode,
+                currency: this.props.currency
               }
             })
         };
@@ -56,11 +85,11 @@ class TickersComponent extends Component {
               onPress={navAction}
               rippleColor="rgba(255, 20, 147, 0.3)">
               <View style={[Styles.tickersContainer, Styles.containerCenter]}>
-                <Text style={[Styles.tickerTitle]}>
+                <Text style={[Styles.tickerTitle, Styles.tac]}>
                   {companyName}
                 </Text>
-                <Text style={[Styles.tickerCode]}>
-                  {rowData.split("|")[1]}
+                <Text style={[Styles.tickerCode, Styles.tac]}>
+                  {tickerCode}
                 </Text>
               </View>
           </MKButton>

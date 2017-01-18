@@ -29,10 +29,6 @@ let navData = {
         'title' : "India",
         'id': 'in'
     },
-    4: {
-        'title' : "Japan",
-        'id': 'jp'
-    },
 };
 
 class Home extends Component {
@@ -79,7 +75,7 @@ class Home extends Component {
             <View style={Styles.containerFull}>
             	<View style={Styles.headerWrapper}>  
 	                <Text style={Styles.headerText}>{"Quandl Database"}</Text>
-	                <Text style={[Styles.headerText, Styles.headerDesc]}>{"Financial & Economic Data"}</Text>
+	                <Text style={[Styles.headerText, Styles.headerDesc, Styles.tac]}>{"Financial & Economic Data\n(Free Datasets)"}</Text>
 	            </View>
             	<View style={Styles.contentWrapper}>
             		<ListView

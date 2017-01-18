@@ -93,6 +93,9 @@ const Styles = StyleSheet.create(
 			fontWeight: 'bold',
 			color: '#000'
 		},
+		contentTitleSmall:{
+			fontSize: em(1),
+		},
 		contentDate:{
 			fontSize: em(1),
 			color: '#000'
@@ -125,21 +128,23 @@ const Styles = StyleSheet.create(
 		// #Nav
 		navList:{
 			margin: 10,
-			flexDirection: 'row',
+			//flexDirection: 'row',
+			flexDirection: 'column',
 	    	flexWrap: 'wrap',
 	    	alignItems: 'flex-start',
+	    	alignItems: 'center',
 	    	justifyContent: 'center',
 		},
 		navItem:{
 			margin: 10,
-			width: Dimensions.get('window').width/2.5,
+			width: Dimensions.get('window').width-50,
 			height: Dimensions.get('window').height/5,
 			justifyContent: 'center',
 			alignItems: 'center',
 			backgroundColor: "#f2f2f2",
 		},
 		navText:{
-			fontSize: em(1),
+			fontSize: em(1.25),
 			fontWeight: 'bold'
 		},
 		usContentWrapper:{

@@ -11,6 +11,10 @@ import com.facebook.react.shell.MainReactPackage;
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import cn.mandata.react_native_mpchart.MPChartPackage; 
+import com.RNFetchBlob.RNFetchBlobPackage;      
+import com.rnziparchive.RNZipArchivePackage;
+import com.rnfs.RNFSPackage;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +33,10 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           new OrientationPackage(),
           new ReactMaterialKitPackage(),
-          new MPChartPackage()
+          new MPChartPackage(),
+          new RNFetchBlobPackage(),
+          new RNZipArchivePackage(),
+          new RNFSPackage()
       );
     }
   };

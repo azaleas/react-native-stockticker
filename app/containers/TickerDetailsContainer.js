@@ -37,6 +37,8 @@ const SingleColorSpinner = MKSpinner.singleColorSpinner()
   .withStrokeColor(spinnerOptions.strokeColor)
   .build()
 
+const stopFetch = false;
+
 class TickerDetailsContainer extends Component {
 
     constructor(props) {
@@ -47,7 +49,12 @@ class TickerDetailsContainer extends Component {
         }
     }
 
+    componentWillUnmount(){
+        stopFetch = true;
+    }
+
     componentWillMount(){
+        stopFetch = false;
         Orientation.lockToPortrait();
     	// get historical data: 6 month
     	let date = moment().format('YYYY-MM-DD');
@@ -57,22 +64,26 @@ class TickerDetailsContainer extends Component {
     	let dataSet = this.props.data.dataSet;
         let currency = this.props.data.currencyCode;
 
-        currencyNumber = 0;
+        let currencyNumber = 0;
 
         let dataTest = (currencyNumber) => {
             currencyCode = currency + currencyNumber;
             api.fetchHistorical(tickerCode, currencyCode, dataSet, date, prevdate)
             .then((dataJSON) => {
                 let data = dataJSON.dataset;
-                if(typeof data != 'undefined'){
-                    this.setState({
-                        data: dataJSON.dataset,
-                        loaded: true,
-                    })
-                }
-                else{
-                    currencyNumber++;
-                    dataTest(currencyNumber);
+                if(!stopFetch){
+                    if(typeof data != 'undefined'){
+                        this.setState({
+                            data: dataJSON.dataset,
+                            loaded: true,
+                        })
+                    }
+                    else{
+                            if(dataSet == "SIX"){
+                                currencyNumber++;
+                                dataTest(currencyNumber);
+                            }
+                    }
                 }
             })
         }

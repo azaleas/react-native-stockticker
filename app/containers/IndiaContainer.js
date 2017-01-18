@@ -35,7 +35,7 @@ const SingleColorSpinner = MKSpinner.singleColorSpinner()
   .withStrokeColor(spinnerOptions.strokeColor)
   .build()
 
-class EuropeContainer extends Component {
+class IndiaContainer extends Component {
 
     constructor(props) {
     	/* totalData will be used as autocomplete, 
@@ -47,42 +47,34 @@ class EuropeContainer extends Component {
             allData: '',
             allISIN: '',
             searchStatus: '',
-            currency: 'Swiss Franc',
-            currencyCode: 'CHF',
-            dataSet: 'SIX',
+            currency: 'Rs. Cr',
+            currencyCode: '',
+            dataSet: 'NSE',
         };
     }
 
     componentWillMount(){
 
-    Orientation.lockToPortrait();
+        Orientation.lockToPortrait();
 
-	let tickers = [];
-	let totalData = [];
-
-    let dayCounter = 0;
-
-    api.isinCodes()
-        .then((responseALL)=>{
-            //isinALL = {};
-            isinCodesList = [];
-            //isinCompanies = [];
-            responseALL.filter((element, index) => {
-                //isinCompanies.push(_.upperCase(element.split("|")[0]));
-                isinCodesList.push(element.split("|")[1]);
-            });
-            /*isinALL = {
-                isinCompanies,
-                isinCodesList
-            }*/
-            this.setState({
-                loaded: true,
-                allISIN: isinCodesList,
-                totalData: responseALL,
-                allData: responseALL,
-                searchStatus: "Total tickers: " + responseALL.length,
-            });
-        })
+        api.zippedCodes('NSE')
+            .then((nseCodesAll) => {
+                // remove NSE
+                let responseALL = [];
+                let nseCodesList = [];
+                nseCodesAll.filter((element, index) => {
+                    removeNSE = element.replace('NSE/', '');
+                    responseALL.push(removeNSE);
+                    nseCodesList.push(removeNSE.split(",")[0]);
+                });
+                this.setState({
+                    loaded: true,
+                    allNSE: nseCodesList,
+                    totalData: responseALL,
+                    allData: responseALL,
+                    searchStatus: "Total tickers: " + responseALL.length,
+                });
+            })
     }
 
     _handleTextChange = (text) =>{
@@ -121,7 +113,7 @@ class EuropeContainer extends Component {
 	            <View style={Styles.containerFull}>
 	        		<View style={Styles.headerWrapper}>  
 		                <Text style={Styles.headerText}>{this.props.title}</Text>
-		                <Text style={[Styles.headerText, Styles.headerDesc]}>{"Swiss Exchange"}</Text>
+		                <Text style={[Styles.headerText, Styles.headerDesc]}>{"National Stock Exchange of India"}</Text>
 		            </View>
 		            <View style={[Styles.contentWrapper, Styles.usContentWrapper]}>
 		            	<View style={Styles.inputWrapper}>
@@ -130,7 +122,7 @@ class EuropeContainer extends Component {
 					            onChangeText={this._handleTextChange}
 					            autoCapitalize={'characters'}
 					            maxLength={20}
-					            placeholder="Enter Company Name or ISIN" />
+					            placeholder="Enter Company Name or NSE code" />
 		            	</View>
 		            	<View style={Styles.bookmarksWrapper}>
 							<Text>{this.state.searchStatus}</Text>
@@ -148,4 +140,4 @@ class EuropeContainer extends Component {
     }
 }
 
-export default EuropeContainer;
+export default IndiaContainer;

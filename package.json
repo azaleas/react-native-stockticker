@@ -9,20 +9,23 @@
   "dependencies": {
     "lodash": "^4.16.6",
     "moment": "^2.15.2",
-    "react": "15.3.2",
-    "react-native": "0.36.0",
+    "react": "15.4.1",
+    "react-native": "0.38.0",
     "react-native-chart-android": "^1.0.5",
+    "react-native-fetch-blob": "^0.10.0",
+    "react-native-fs": "^2.0.1-rc.2",
     "react-native-material-kit": "^0.3.3",
-    "react-native-orientation": "git+https://github.com/yamill/react-native-orientation.git"
+    "react-native-orientation": "git+https://github.com/yamill/react-native-orientation.git",
+    "react-native-zip-archive": "0.0.11"
   },
   "jest": {
     "preset": "jest-react-native"
   },
   "devDependencies": {
-    "babel-jest": "16.0.0",
+    "babel-jest": "17.0.2",
     "babel-preset-react-native": "1.9.0",
-    "jest": "16.0.2",
-    "jest-react-native": "16.0.0",
-    "react-test-renderer": "15.3.2"
+    "jest": "17.0.3",
+    "jest-react-native": "17.0.3",
+    "react-test-renderer": "15.4.1"
   }
 }

@@ -65,6 +65,7 @@ class USTickerDetails extends Component {
 			this.props.navigator.push({
               id,
               title,
+              dataSet: "WIKI",
               data: this.props.historicalValue
             })
 		}
